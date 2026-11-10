@@ -1,0 +1,38 @@
+# intake: every new issue meets the allowlist first (train review-T1, A5). An author not on
+# catalog/allowlist.json gets the issue closed unread: the step reads only the author's account id, never the
+# title or the body. An allowlisted author's proposal is refused by the name of a mechanical check, or
+# received with its instruction marks. The issue's text reaches no shell: tools/intake.py reads it from the
+# event file as data, and the comment it writes is fixed words and check names only. Nothing is committed.
+name: intake
+on:
+  issues:
+    types: [opened, reopened]
+permissions:
+  contents: read
+  issues: write
+concurrency:
+  group: intake-${{ github.event.issue.number }}
+jobs:
+  intake:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          persist-credentials: false
+      - name: decide
+        id: decide
+        run: |
+          python3 -I -B tools/intake.py event "$GITHUB_EVENT_PATH" --comment "$RUNNER_TEMP/comment.md" > "$RUNNER_TEMP/action.json"
+          echo "action=$(python3 -I -c 'import json,sys; print(json.load(open(sys.argv[1]))["action"])' "$RUNNER_TEMP/action.json")" >> "$GITHUB_OUTPUT"
+      - name: answer
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          NUMBER: ${{ github.event.issue.number }}
+          ACTION: ${{ steps.decide.outputs.action }}
+        run: |
+          case "$ACTION" in
+            close-unread|refuse) gh issue close "$NUMBER" --comment "$(cat "$RUNNER_TEMP/comment.md")" ;;
+            receive) gh issue comment "$NUMBER" --body-file "$RUNNER_TEMP/comment.md" ;;
+            *) echo "intake: no action"; exit 1 ;;
+          esac

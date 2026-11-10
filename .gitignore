@@ -1,0 +1,16 @@
+__pycache__/
+*.pyc
+
+# The never-store mirror (IR-13): the atlas's charter/never-store.yaml paths, so nothing on it can be staged.
+# Kept equal to catalog/never-store.json by the tree guard (tools/intake.py tree).
+SubstrateSoulData/
+RECALL*.md
+recall_spec*
+*.enc
+.prev/
+SubstrateSoul.prev/
+transcripts/
+*.transcript.*
+.env
+*.pem
+*.key

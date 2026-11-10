@@ -1,0 +1,24 @@
+{
+  "source": "charter/never-store.yaml",
+  "atlas_commit": "d1933847",
+  "source_sha256": "954c8c4da63d9d7258dab15a6c4c0833c75b2f9aca90ba9242d1d3a1291f370b",
+  "paths": [
+    "**/SubstrateSoulData/**",
+    "**/RECALL*.md",
+    "**/recall_spec*",
+    "**/*.enc",
+    "**/.prev/**",
+    "**/SubstrateSoul.prev/**",
+    "**/transcripts/**",
+    "**/*.transcript.*",
+    "**/.env",
+    "**/*.pem",
+    "**/*.key"
+  ],
+  "content": [
+    "-----BEGIN (RSA |EC |OPENSSH )?PRIVATE KEY-----",
+    "(?i)aws_secret_access_key\\s*=",
+    "(?i)ghp_[A-Za-z0-9]{30,}",
+    "(?i)sk-[A-Za-z0-9]{20,}"
+  ]
+}
