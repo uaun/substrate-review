@@ -140,6 +140,7 @@ None.
 ## Receipts
 
 <!-- house section: receipts -->
-None yet. A receipt is filed in the house and copied to the atlas at `frameworks/review/engineering/alignment/receipts/<train>/README.md` at the end of every alignment train (IR-8).
+- review-T1 (AP-review-0001): delivered by the atlas with no house session, landed at `8af23f4` (pull request #1); its record is the atlas's RC-review-T1, `frameworks/review/engineering/alignment/receipts/T1/README.md`.
+- review-T2 (AP-review-0002): delivered by the atlas as the house kit; its receipt is `house/receipts/review-T2.md`, copied to the atlas at `frameworks/review/engineering/alignment/receipts/T2/README.md`.
 <!-- end house section -->
 
