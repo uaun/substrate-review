@@ -114,7 +114,6 @@ def slugs(root: Path = ROOT) -> list[str]:
 
 
 def gitignore_form(glob: str) -> str:
-    """The .gitignore line for one never-store glob: a pattern with no slash matches at any depth, and a
-    folder's contents are ignored by naming the folder."""
-    g = glob[3:] if glob.startswith("**/") else glob
-    return g[:-3] + "/" if g.endswith("/**") else g
+    """The .gitignore line for one never-store glob: the glob itself, between the mirror's marker lines, as
+    house/guards.py reads it (git's ignore syntax takes the atlas's `**/` globs as written)."""
+    return glob

@@ -1,0 +1,9 @@
+# The branch policy of the ready gate (IR-16; house/unmerged.py), this house's own copy as the
+# atlas's ops/branch-policy.yaml asks of a house that ports the tool. Changed only by DU's word.
+#
+# quiet_days  an in-progress branch of Claude's with no commit for this many days is stalled: it is
+#             reviewed automatically (never merged) and put to DU with the review's verdict
+# review      the check the automatic review runs on the branch merged with main, in a throwaway
+#             worktree; closable when it passes
+quiet_days: 7
+review: bash tools/check.sh

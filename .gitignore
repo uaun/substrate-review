@@ -1,16 +1,24 @@
+# Caches (AP-all-0006/A2).
 __pycache__/
 *.pyc
+.venv/
+venv/
+.DS_Store
+.pytest_cache/
 
-# The never-store mirror (IR-13): the atlas's charter/never-store.yaml paths, so nothing on it can be staged.
-# Kept equal to catalog/never-store.json by the tree guard (tools/intake.py tree).
-SubstrateSoulData/
-RECALL*.md
-recall_spec*
-*.enc
-.prev/
-SubstrateSoul.prev/
-transcripts/
-*.transcript.*
-.env
-*.pem
-*.key
+# The never-store mirror (IR-13): the atlas's charter/never-store.yaml paths, as the house's copy
+# catalog/never-store.json carries them, so nothing on the list can be staged. Kept equal to that copy by
+# house/guards.py and the tree guard (tools/intake.py tree); change both in one commit.
+# never-store mirror: begin
+**/SubstrateSoulData/**
+**/RECALL*.md
+**/recall_spec*
+**/*.enc
+**/.prev/**
+**/SubstrateSoul.prev/**
+**/transcripts/**
+**/*.transcript.*
+**/.env
+**/*.pem
+**/*.key
+# never-store mirror: end

@@ -6,6 +6,9 @@ house's tests are run there; a mutation the tests do not catch is a check nothin
 check, and by hand:
 
   python3 -I -B tests/sabotage.py [-v]
+
+A mutation under house/ runs the kit's pytest suite (stopping at its first failure); the others run the
+unittest suite under tests/.
 """
 from __future__ import annotations
 
@@ -45,7 +48,28 @@ MUTATIONS = (
     ("atlas copy: slugs sorted and distinct", "tools/atlas_copy.py",
      "if not slugs or slugs != sorted(set(slugs))", "if False and (not slugs or slugs != sorted(set(slugs)))"),
     ("workflow: permissions named", ".github/workflows/intake.yml", "permissions:\n  contents: read", "permissions:\n  contents: write"),
+    # the house kit (AP-review-0002), whose tests are pytest's under house/tests
+    ("kit: duplicate ids", "house/guards.py", "            if len(ws) > 1:", "            if False:"),
+    ("kit: union lines", "house/guards.py", 'if "merge=union" not in have.get(pat, []):', "if False:"),
+    ("kit: a branch created twice", "house/guards.py", "            if b in created:", "            if False:"),
+    ("kit: never-store content", "house/guards.py", "        for cp in pats:", "        for cp in []:"),
+    ("kit: owned files", "house/guards.py", "for f in files if f in changed]", "for f in files if False]"),
+    ("kit: banned commits", "house/guards.py", 'hit = lambda a: (fingerprint(a) if a.strip() and fingerprint(a) in fps else "")',
+     'hit = lambda a: ""'),
+    ("kit: a committed fingerprint (AT.765)", "house/guards.py", "            if hx.lower() in fps:", "            if False:"),
+    ("kit: one never-store copy", "house/guards.py", '    rel = cfg.get("never_store_file")', "    rel = None"),
+    ("kit: the ready gate", "house/unmerged.py", 'kind = "ready" if mark == "ready" else', 'kind = "ready" if True else'),
+    ("kit: never filed twice", "house/atlas_queue.py", '        if r["key"] in have:', "        if False:"),
 )
+
+
+# the kit's test files that hold each tool's checks, so a mutation runs only those (the whole kit suite takes about
+# a minute, these seconds)
+KIT_TESTS = {
+    "house/guards.py": ["house/tests/test_review_additions.py", "house/tests/test_house_guards.py"],
+    "house/unmerged.py": ["house/tests/test_ready_gate.py", "house/tests/test_house_guards.py"],
+    "house/atlas_queue.py": ["house/tests/test_atlas_queue.py"],
+}
 
 
 def copy_house(dest: Path) -> None:
@@ -54,9 +78,14 @@ def copy_house(dest: Path) -> None:
     subprocess.run(["git", "-C", str(dest), "add", "-A"], check=True)
 
 
-def tests_pass(root: Path) -> bool:
-    r = subprocess.run([sys.executable, "-I", "-B", "-m", "unittest", "discover", "-s", "tests", "-t", ".", "-q"],
-                       cwd=root, capture_output=True, text=True)
+def tests_pass(root: Path, rel: str = "") -> bool:
+    """Review's tests (unittest) for its own tools; the kit's (pytest, stopping at the first failure, so a caught
+    mutation costs seconds) for a file under house/."""
+    if rel.startswith("house/"):
+        cmd = [sys.executable, "-I", "-B", "-m", "pytest", "-x", "-q", "-p", "no:cacheprovider", *KIT_TESTS.get(rel, ["house/tests"])]
+    else:
+        cmd = [sys.executable, "-I", "-B", "-m", "unittest", "discover", "-s", "tests", "-t", ".", "-q"]
+    r = subprocess.run(cmd, cwd=root, capture_output=True, text=True)
     return r.returncode == 0
 
 
@@ -78,7 +107,7 @@ def main(argv: list[str]) -> int:
             missed.append(f"{name}: the check's text is not in {rel} (the mutation list is stale)")
             continue
         f.write_text(text.replace(old, new), encoding="utf-8")
-        caught = not tests_pass(root)
+        caught = not tests_pass(root, rel)
         if verbose:
             print(f"  {'red ' if caught else 'MISS'}  {name}")
         if not caught:

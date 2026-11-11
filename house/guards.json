@@ -1,0 +1,43 @@
+{
+ "_doc": "The house's concurrency guards (IR-13; AP-review-0002, A1; ported from Jetsam's house/guards.json at f97c6f7 and re-derived for this house). house/guards.py reads this file; .gitattributes carries its union_logs between marker lines and .gitignore mirrors the never-store list the file never_store_file names, and the check compares them. Change a list here and its mirror in the same commit.",
+ "union_logs": [
+  "house/branches.jsonl",
+  "house/atlas-replies.jsonl",
+  "catalog/events.jsonl"
+ ],
+ "_union_logs_why": "Each is written only by appending one JSON line, so a line-wise merge keeps both sides. Two sessions that mint one id merge silently; the id spaces below, the creation-log check in house/guards.py and tools/catalog.py's event-id check are what refuse the duplicate.",
+ "id_spaces": [
+  {
+   "name": "atlas items",
+   "files": [
+    "WORK.md"
+   ],
+   "pattern": "^- \\*\\*(AP-[a-z0-9]+-\\d{4}/A\\d+)\\*\\*"
+  },
+  {
+   "name": "atlas replies",
+   "files": [
+    "house/atlas-replies.jsonl"
+   ],
+   "jsonl_key": [
+    "id"
+   ]
+  }
+ ],
+ "owned": {
+  "owner": "the session DU opened for this house; where two run at once, the one he names (no soul is installed here, so no seat holds it)",
+  "files": [
+   "HANDOFF.md",
+   "SUBSTRATE.md",
+   "WORK.md",
+   "BOOT_PROMPT.md"
+  ]
+ },
+ "_owned_why": "HANDOFF.md is the hand-maintained handoff; WORK.md is the backlog the queue pull files into; SUBSTRATE.md is delivered by the atlas but its refusals and receipts sections are written here; BOOT_PROMPT.md is the boot prompt every handoff ships. Every session that is not the owner rebases on main before touching one.",
+ "never_store_file": "catalog/never-store.json",
+ "_never_store_why": "The house keeps one copy of the atlas's never-store list, catalog/never-store.json, stamped with the atlas commit it was read at (tools/atlas_copy.py), which the intake's never-store check, the tree guard and these guards all read. Review holds no soul data and carries proposals as data, so the atlas's whole list applies here, recall paths included.",
+ "banned": {
+  "source": "ops/banned-authors.yaml at the atlas's main (uaun/substrate-atlas), read at check time and never copied (AT.765)",
+  "_why": "The operator's banned-address rule: addresses no commit may carry, named only by fingerprint (sha256 of the lowercase address). This house is public, and a published fingerprint lets anyone holding a guess confirm it, so the list is read from the atlas each time (`--atlas DIR`, or the API) and never committed; `house/guards.py banned` also refuses a tracked file carrying one of its fingerprints."
+ }
+}
