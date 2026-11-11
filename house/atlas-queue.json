@@ -11,31 +11,34 @@
    "depends_on": []
   },
   "AP-all-0006/A1": {
-   "state": "filed",
+   "state": "landed",
    "house_item": "AP-all-0006/A1",
    "title": "Binaries go to Git LFS by the atlas's set, text never, with LF line endings for text; sealed and data paths keep their bytes",
    "done_when": "git check-attr filter reads lfs for x.png, x.wav, x.mp4, x.pdf, x.zip and x.glb and unspecified for x.md, x.json and x.svg; negative control: a .md file never reads lfs, and a .png staged with git add is stored as an LFS pointer",
    "priority": "now",
    "filed_at": "2026-11-11T12:01:54Z",
-   "depends_on": []
+   "depends_on": [],
+   "commit": "73fc716bd333ff3215a7e6e0b8c12588b7211b7e"
   },
   "AP-all-0006/A2": {
-   "state": "filed",
+   "state": "landed",
    "house_item": "AP-all-0006/A2",
    "title": "The ignore file carries the caches and mirrors the house's never-store list (IR-13)",
    "done_when": "git check-ignore matches x/__pycache__/a.pyc, .venv/a and a/.DS_Store, and a/SubstrateSoulData/b and a/.env where the house mirrors the atlas's list; negative control: SUBSTRATE.md or README.md is not ignored",
    "priority": "now",
    "filed_at": "2026-11-11T12:01:54Z",
-   "depends_on": []
+   "depends_on": [],
+   "commit": "73fc716bd333ff3215a7e6e0b8c12588b7211b7e"
   },
   "AP-all-0006/A3": {
-   "state": "filed",
+   "state": "refused",
    "house_item": "AP-all-0006/A3",
    "title": "Byte-exact test vectors stay in plain git, marked binary, never LFS (Kernel's vectors/**/*.bin); a house with none answers not applicable",
    "done_when": "git check-attr -a reads diff, merge and text unset and no filter for vectors/loads/9.bin; negative control: HEAD:vectors/loads/9.bin is not an LFS pointer",
    "priority": "now",
    "filed_at": "2026-11-11T12:01:54Z",
-   "depends_on": []
+   "depends_on": [],
+   "reason": "not applicable: the house has no byte-exact test vectors (AP-review-0002, A6)"
   },
   "AP-all-0007/A1": {
    "state": "filed",
@@ -56,16 +59,17 @@
    "depends_on": []
   },
   "AP-review-0002/A1": {
-   "state": "filed",
+   "state": "landed",
    "house_item": "AP-review-0002/A1",
    "title": "IR-13's concurrency guards and the banned-address check in house/, ported from Jetsam's house/ and re-derived; the check reads the atlas's fingerprint list and the house commits none (AT.765); one house check",
    "done_when": "bash tools/check.sh --atlas <atlas> reports zero findings on the house's own tree and every test passes; no tracked file or commit of the house holds any fingerprint of the atlas's ops/banned-authors.yaml; negative control: a fixture commit by a made-up address whose fingerprint a test plants turns the banned check red with neither the address nor the full fingerprint printed",
    "priority": "now",
    "filed_at": "2026-11-11T12:01:54Z",
-   "depends_on": []
+   "depends_on": [],
+   "commit": "73fc716bd333ff3215a7e6e0b8c12588b7211b7e"
   },
   "AP-review-0002/A2": {
-   "state": "filed",
+   "state": "landed",
    "house_item": "AP-review-0002/A2",
    "title": "The creation log house/branches.jsonl, written by house/branch.sh as each branch's first commit and seeded with review-T1's branch",
    "done_when": "a branch made by the tool carries its creation line in its first commit, the log names session/2026-11-10/01-review-t1-setup as Claude's and merged, and both kinds of duplicate are refused",
@@ -73,10 +77,11 @@
    "filed_at": "2026-11-11T12:01:54Z",
    "depends_on": [
     "AP-review-0002/A1"
-   ]
+   ],
+   "commit": "73fc716bd333ff3215a7e6e0b8c12588b7211b7e"
   },
   "AP-review-0002/A3": {
-   "state": "filed",
+   "state": "landed",
    "house_item": "AP-review-0002/A3",
    "title": "house/unmerged.py: the unmerged check, the ready gate (IR-16), merges by pull request on DU's word with the banned-address reading before and after, and pruning; ops/branch-policy.yaml",
    "done_when": "an in-progress branch is never offered, an unmarked one of Claude's is refused by merge with nothing pushed, a ready one lands by pull request at the tip DU was shown, a planted fingerprint for a stubbed committer refuses the merge with no merge call made, and pruning keeps the newest ten",
@@ -84,10 +89,11 @@
    "filed_at": "2026-11-11T12:01:54Z",
    "depends_on": [
     "AP-review-0002/A2"
-   ]
+   ],
+   "commit": "73fc716bd333ff3215a7e6e0b8c12588b7211b7e"
   },
   "AP-review-0002/A4": {
-   "state": "filed",
+   "state": "landed",
    "house_item": "AP-review-0002/A4",
    "title": "The queue pull at boot and close: each new item filed once in WORK.md's atlas items, top items offered by widget, state in house/atlas-queue.json",
    "done_when": "the first pull records every open queue item against its key in house/atlas-queue.json, filing none twice, and the atlas's tools/atlasqueue.py status reads the file at the house's main; negative control: an unreachable atlas reads UNREACHABLE and leaves the state file untouched",
@@ -95,10 +101,11 @@
    "filed_at": "2026-11-11T12:01:54Z",
    "depends_on": [
     "AP-review-0002/A1"
-   ]
+   ],
+   "commit": "73fc716bd333ff3215a7e6e0b8c12588b7211b7e"
   },
   "AP-review-0002/A6": {
-   "state": "filed",
+   "state": "landed",
    "house_item": "AP-review-0002/A6",
    "title": "The skeleton: the atlas's LFS block and LF endings in .gitattributes, the caches in .gitignore, and the verify workflow running the kit's tests",
    "done_when": "git check-attr filter reads lfs for x.png, x.wav, x.mp4, x.pdf, x.zip and x.glb and unspecified for x.md, x.json and x.svg; git check-ignore matches the caches and a never-store path; the verify workflow runs bash tools/check.sh green on the delivery's pull request",
@@ -106,10 +113,11 @@
    "filed_at": "2026-11-11T12:01:54Z",
    "depends_on": [
     "AP-review-0002/A1"
-   ]
+   ],
+   "commit": "73fc716bd333ff3215a7e6e0b8c12588b7211b7e"
   },
   "AP-review-0002/A7": {
-   "state": "filed",
+   "state": "landed",
    "house_item": "AP-review-0002/A7",
    "title": "HANDOFF.md's gap closed and its live state corrected from RC-review-T1, the boot's self-check against its registry row and gate (IR-17, IR-18), BOOT_PROMPT.md, review-T1 marked landed in WORK.md, and the trains' receipt lines in SUBSTRATE.md",
    "done_when": "HANDOFF.md names no missing guard, BOOT_PROMPT.md starts with Rule 0 verbatim and names the boot with the self-check, the emitter given the house's SUBSTRATE.md with --from reproduces it byte for byte, and the house check is green; negative control: a registry row edited to another stage in a test copy of the atlas is named as a difference by the self-check",
@@ -122,10 +130,11 @@
     "AP-review-0002/A4",
     "AP-review-0002/A5",
     "AP-review-0002/A6"
-   ]
+   ],
+   "commit": "2dcb71622661023d531cb9a2e2a6d8a53e48d3f6"
   },
   "AP-all-0002/A2": {
-   "state": "filed",
+   "state": "landed",
    "house_item": "AP-all-0002/A2",
    "title": "Send replies to the atlas (house/atlas-replies.jsonl, contract atlas-reply), an arrival at each prompt's first filing, and show the atlas's answers at boot",
    "done_when": "the atlas's tools/atlasreply.py read --record records the house's arrival for AP-all-0002 with no refusal, and the house's next boot shows the atlas's confirmation",
@@ -134,10 +143,11 @@
    "depends_on": [],
    "depends_on_closed": [
     "AP-all-0002/A1"
-   ]
+   ],
+   "commit": "73fc716bd333ff3215a7e6e0b8c12588b7211b7e"
   },
   "AP-all-0003/A2": {
-   "state": "filed",
+   "state": "landed",
    "house_item": "AP-all-0003/A2",
    "title": "Port the ready gate into the house's own branch tools (ready, review, brief, the gate in merge, ops/branch-policy.yaml) and mark ready as the close's last act",
    "done_when": "in the house, a branch of Claude's with no ready mark is refused by merge with nothing pushed, and the same branch merges once marked ready",
@@ -146,7 +156,8 @@
    "depends_on": [],
    "depends_on_closed": [
     "AP-all-0003/A1"
-   ]
+   ],
+   "commit": "73fc716bd333ff3215a7e6e0b8c12588b7211b7e"
   },
   "AP-all-0004/A2": {
    "state": "filed",
@@ -194,16 +205,17 @@
    "depends_on": []
   },
   "AP-all-0008/A1": {
-   "state": "filed",
+   "state": "landed",
    "house_item": "AP-all-0008/A1",
    "title": "The banned-address check and its fingerprint list, re-derived from the atlas's tools/authors.py: fingerprints only, each house's own since, never an address; a public house commits no fingerprint and reads the atlas's list (AT.765)",
    "done_when": "check on the house's main prints the fingerprint count, the commits read since since and 0 banned, and the house's fingerprints equal the atlas's ops/banned-authors.yaml at the atlas commit read; negative control: a fixture commit by a made-up address whose fingerprint is planted in a test list turns the check red (exit 1), with neither the address nor its full fingerprint in the output",
    "priority": "soon",
    "filed_at": "2026-11-11T12:01:54Z",
-   "depends_on": []
+   "depends_on": [],
+   "commit": "73fc716bd333ff3215a7e6e0b8c12588b7211b7e"
   },
   "AP-all-0008/A2": {
-   "state": "filed",
+   "state": "landed",
    "house_item": "AP-all-0008/A2",
    "title": "The house's merge tool refuses before landing on a match (the branch's commits, git user.email) and prints STOP after GitHub's merge when the merge commit matches",
    "done_when": "a merge on DU's word through the house's tool prints its before and after readings, both clean; negative control: with a fingerprint planted for a stubbed committer the tool refuses with nothing merged and the stubbed API records no merge call, and a stubbed merge commit by that address prints STOP and exits non-zero",
@@ -211,10 +223,11 @@
    "filed_at": "2026-11-11T12:01:54Z",
    "depends_on": [
     "AP-all-0008/A1"
-   ]
+   ],
+   "commit": "73fc716bd333ff3215a7e6e0b8c12588b7211b7e"
   },
   "AP-all-0008/A3": {
-   "state": "filed",
+   "state": "landed",
    "house_item": "AP-all-0008/A3",
    "title": "Boot prints the banned-address line and the list's drift against the atlas's; the first clean reading goes to the atlas as a reply (IR-15)",
    "done_when": "the house's boot prints fingerprints, commits read, banned count and whether its list equals the atlas's at its main, and its reply of kind reading (a question before AP-all-0009/A1; A3's words amended by AT.684) carries its first clean reading; negative control: a list one fingerprint short reads DRIFT, and an unreachable atlas reads UNREACHABLE with the boot green, never a match",
@@ -222,10 +235,11 @@
    "filed_at": "2026-11-11T12:01:54Z",
    "depends_on": [
     "AP-all-0008/A1"
-   ]
+   ],
+   "commit": "2dcb71622661023d531cb9a2e2a6d8a53e48d3f6"
   },
   "AP-review-0002/A5": {
-   "state": "filed",
+   "state": "landed",
    "house_item": "AP-review-0002/A5",
    "title": "Replies to the atlas in house/atlas-replies.jsonl (IR-15): an arrival at each prompt's first take-in, the other kinds by command, the answers shown at boot",
    "done_when": "the atlas's tools/atlasreply.py read records the house's arrivals with no refusal, and the next boot shows the atlas's confirmations",
@@ -233,7 +247,8 @@
    "filed_at": "2026-11-11T12:01:54Z",
    "depends_on": [
     "AP-review-0002/A4"
-   ]
+   ],
+   "commit": "73fc716bd333ff3215a7e6e0b8c12588b7211b7e"
   },
   "AP-all-0004/A6": {
    "state": "filed",
