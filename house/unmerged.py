@@ -132,6 +132,11 @@ def fetch_all(root: Path) -> None:
     house's first live run: a depth-1 clone listed a merged day branch as ahead 3)."""
     deepen = ["--deepen=1000"] if shallow(root) else []   # from the boundary: --depth re-cuts at each tip
     git(root, "fetch", "--prune", "--quiet", *deepen, "origin", "+refs/heads/*:refs/remotes/origin/*")
+    # The Tenant's fix (RC-tenant-T2, deviation 4; the atlas's TODO-237): on GitHub's runner (git 2.56.0) a head new
+    # to a shallow clone arrives cut at its own tip, a boundary the first deepen does not reach, so a merged branch
+    # reads "undecidable"; one more deepen from every boundary reaches it. Measured on this house's first CI run.
+    if deepen and shallow(root):
+        git(root, "fetch", "--quiet", "--deepen=1000", "origin", "+refs/heads/*:refs/remotes/origin/*")
 
 
 def read_both(root: Path, rel: str) -> list[str]:

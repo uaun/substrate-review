@@ -11,7 +11,8 @@ On `session/2026-11-11/01-review-t2-house-kit`, from `main` at `8af23f4`:
 | `d856c8f` | the branch's creation line, by hand in the tool's format, with review-T1's branch seeded after the fact, and the filings: A1 to A7 and the eight carried family items in `WORK.md`'s atlas items, before any build (IR-8) |
 | `73fc716` | A1 to A6: the kit in `house/`, `ops/branch-policy.yaml`, `.gitattributes`, `.gitignore`, the verify workflow's pytest step, `tools/check.sh` running the kit, the sabotage pass's ten kit mutations, the first queue pull's filings and arrivals, and review-T1's items marked landed |
 | `2dcb716` | A7: `HANDOFF.md`, `BOOT_PROMPT.md`, the receipt lines in `SUBSTRATE.md` |
-| this commit | the state file's landed marks, the vectors' not-applicable reply, and this receipt |
+| `ccf1265` | the state file's landed marks, the vectors' not-applicable reply, and this receipt |
+| this commit | the Tenant's shallow-clone fix after the first CI run (deviation 9) |
 
 ## Items
 
@@ -42,7 +43,8 @@ Tests: 95 in the kit (`house/tests`, pytest) and 51 in `tests/` (unittest), all 
 6. **The kit's tests need pytest, and CI installs it.** Review's own tests stay unittest. The verify workflow installs pytest 9.1.1, the version these tests ran under here.
 7. **The sabotage pass runs the kit's mutations against their own test files**, stopping at the first failure. A caught mutation costs seconds rather than the minute the whole kit suite takes.
 8. **The emitter's comparison excludes the `installed` row**, as Jetsam's and Strata's receipts record. `tools/registry.py --emit review --from SUBSTRATE.md` equals this `SUBSTRATE.md` byte for byte except that row, which carries the day it runs (2026-11-11 against 2026-11-10).
-9. **AP-all-0007/A1 and AP-all-0009/A1 are filed, not built.** Both ask that the reply writer accept a kind (`not-applicable`, `reading`). The ported `house/atlas_replies.py` may already accept both, since the not-applicable reply above was written by it. They wait on DU's rank like the other filed items, because this prompt did not carry them.
+9. **The unmerged check deepens a shallow clone twice.** The verify workflow's first run on the delivery's tip `ccf1265`, on GitHub's runner, failed the ported test `test_a_merged_branch_read_from_a_shallow_clone_is_not_listed`, which passes here on git 2.43.0. It is the failure the Tenant met and fixed (RC-tenant-T2, deviation 4; the atlas's TODO-237), so `fetch_all` now deepens once more when the clone is still shallow, as the Tenant's does. Jetsam's house carries the original code and has no workflow, so it has never run there; that is its own sessions' business, and the atlas can carry it.
+10. **AP-all-0007/A1 and AP-all-0009/A1 are filed, not built.** Both ask that the reply writer accept a kind (`not-applicable`, `reading`). The ported `house/atlas_replies.py` may already accept both, since the not-applicable reply above was written by it. They wait on DU's rank like the other filed items, because this prompt did not carry them.
 
 ## Not done here
 
