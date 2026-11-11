@@ -38,7 +38,7 @@ class Tree(unittest.TestCase):
 
     def test_gitignore_mirrors_never_store(self):
         root = repo({})
-        lines = (root / ".gitignore").read_text(encoding="utf-8").replace("transcripts/\n", "")
+        lines = (root / ".gitignore").read_text(encoding="utf-8").replace("**/transcripts/**\n", "")
         (root / ".gitignore").write_text(lines, encoding="utf-8")
         self.assertTrue(any("does not mirror" in p and "transcripts" in p for p in intake.tree(root)))
 
